@@ -1,0 +1,16 @@
+{
+  "data": {
+    "total_uploads": 0,
+    "total_storage_used": 0
+  },
+  "users": {
+    "aA": {
+      "used_urls" : [],
+      "token" : "ExampleToken",
+      "storage_used" : 0,
+      "uploads": 0,
+      "public_name": "admin"
+
+    }
+  }
+}

@@ -1,10 +1,11 @@
-import random
+import os
+from dotenv import load_dotenv
 
-a = True
-while a == True:
-    randoma = random.randint(0, 26)
-    if randoma == 0:
-        a = False
+load_dotenv()  # take environment variables from .env.
 
-
-print("a")
+USER = os.getenv('TEST1')
+print(USER)
+USER = os.getenv('TEST2')
+print(USER)
+USER = os.getenv('TEST3')
+print(USER)

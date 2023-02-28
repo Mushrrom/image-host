@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, request, send_file, jsonify, render_template
 import json
 # import os
@@ -6,6 +8,7 @@ from pages.upload import upload
 from pages.view import viewimg
 
 
+# os.environ["asd"] = "test"
 app = Flask(__name__)
 app.register_blueprint(upload)
 app.register_blueprint(viewimg)

@@ -6,4 +6,5 @@ import os
 
 def configsutff():
     os.environ["images_path"] = "images"
-    os.environ["main_path"] = ""  # wsgi cant do local reading. And I am not manually setting this in each file
+    os.environ["main_path"] = "."  # wsgi cant do local reading. And I am not manually setting this in each file
+    os.environ["URL"] = "127.0.0.1:5000"

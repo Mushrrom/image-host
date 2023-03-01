@@ -6,7 +6,9 @@ import json
 # from random import randint
 from pages.upload import upload
 from pages.view import viewimg
+import configstuff
 
+configstuff.configsutff()
 
 # os.environ["asd"] = "test"
 app = Flask(__name__)
@@ -16,9 +18,7 @@ app.register_blueprint(viewimg)
 
 ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 
-with open("config.json", "r") as f:
-    json_data = json.load(f)
-    URL = json_data["URL"]
+URL = os.environ.get("URL")
 
 
 @app.route('/')

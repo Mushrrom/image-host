@@ -12,7 +12,7 @@ viewimg = Blueprint('viewimg', __name__, template_folder='templates')
 
 @viewimg.route('/image/<file>', methods=['GET'])
 def view(file):
-    return render_template("imgview.html", imgrawurl=f"{URL}/raw/image/{file}", title="test", description="test",
+    return render_template("imgview.html", imgrawurl=f"http://{URL}/raw/image/{file}", title="test", description="test",
                            imgurl="test")
 
 

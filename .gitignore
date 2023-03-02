@@ -1,3 +1,5 @@
 images
 __pycache__
 .idea
+data
+data/aA.json

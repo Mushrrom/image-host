@@ -56,21 +56,25 @@ def show():
                     infojson = json.load(info)
                     infojson["uploads"] += 1
                     infojson["storage_used"] += os.fstat(image.fileno()).st_size
-                    # cd = datetime.now() #cd = current date
-                    # infojson["urlinfo"][f"{img_name}"] = {"size": os.fstat(image.fileno()).st_size,
-                    #                                       "date": str(datetime.now()),
-                    #                                       "timeinfo": {
-                    #                                           "year": cd.year,
-                    #                                           "month": cd.month,
-                    #                                           "day": cd.day,
-                    #                                           "hour": cd.hour,
-                    #                                           "minute": cd.minute,
-                    #                                           "second": cd.second
-                    #                                       },
-                    #                                       "filename": image.filename}
 
                 with open(f"{data_path}/users/{username}/user.json", "w") as info:
                     json.dump(infojson, info)
+
+                with open(f"{data_path}/users/{username}/images/{img_name}.json", "w") as f:
+                    cd = datetime.now() #cd = current date
+                    infojson = {"size": os.fstat(image.fileno()).st_size,
+                                "date": str(datetime.now()),
+                                "timeinfo": {
+                                    "year": cd.year,
+                                    "month": cd.month,
+                                    "day": cd.day,
+                                    "hour": cd.hour,
+                                    "minute": cd.minute,
+                                    "second": cd.second
+                                },
+                                "filename": image.filename,
+                                "already_image_exists": False}
+                    json.dump(infojson, f)
                 return jsonify({"success": True, "url": img_url})
         else:
             print(success)

@@ -36,14 +36,7 @@ def show():
                     success = 0  # success
                 else: success = 1  # wrong token
         else: success = 2  # wrong token
-        # with open(f"{path}/data.json", "r") as info:
-        #     infojson = json.load(info)
-        #     print(infojson["users"])
-        #     if infojson["users"][username]:
-        #         if infojson["users"][username]["token"] == token:
-        #             success = 0 #success
-        #         else: success = 1 #wrong token
-        #     else: success = 2 #wrong username
+        # lol i hope this random code wasn't important
 
         if success == 0:
             if image.mimetype.startswith("image"):

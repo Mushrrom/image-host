@@ -2,9 +2,10 @@
 import os
 
 
-# For some reason wsgi can't use dotenv and its annoying
+# For some reason wsgi can't use dotenv and it's annoying
+# Why tf is my IDE trying to teach me grammar leave me alone please
 
-def configsutff():
+def configsutff():  # TyPo iN wORd cOnfIgStUfF
     os.environ["images_path"] = "images"
     os.environ["main_path"] = "."  # wsgi cant do local reading. And I am not manually setting this in each file
     os.environ["URL"] = "127.0.0.1:5000"

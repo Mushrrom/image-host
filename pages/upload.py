@@ -28,7 +28,7 @@ def show():
         print(path)
         # Save the image to disk
 
-        if os.path.exists(f"{data_path}/{username}.json"):
+        if os.path.exists(f"{data_path}/users/{username}/user.json"):
             print(f"{data_path}/{username}.json")
             with open(f"{data_path}/{username}.json") as info:
                 infojson = json.load(info)
@@ -52,16 +52,25 @@ def show():
                 img_url = f'{url}/image/{username}{img_name}.{image.filename.split(".")[-1]}'
 
                 infojson = {}
-                with open(f"{data_path}/{username}.json", "r") as info:
+                with open(f"{data_path}/users/{username}/user.json", "r") as info:
                     infojson = json.load(info)
                     infojson["uploads"] += 1
                     infojson["storage_used"] += os.fstat(image.fileno()).st_size
+                    # cd = datetime.now() #cd = current date
+                    # infojson["urlinfo"][f"{img_name}"] = {"size": os.fstat(image.fileno()).st_size,
+                    #                                       "date": str(datetime.now()),
+                    #                                       "timeinfo": {
+                    #                                           "year": cd.year,
+                    #                                           "month": cd.month,
+                    #                                           "day": cd.day,
+                    #                                           "hour": cd.hour,
+                    #                                           "minute": cd.minute,
+                    #                                           "second": cd.second
+                    #                                       },
+                    #                                       "filename": image.filename}
 
-                with open(f"{data_path}/{username}.json", "w") as info:
+                with open(f"{data_path}/users/{username}/user.json", "w") as info:
                     json.dump(infojson, info)
-
-                print(os.fstat(image.fileno()).st_size)
-                print(datetime.now())
                 return jsonify({"success": True, "url": img_url})
         else:
             print(success)

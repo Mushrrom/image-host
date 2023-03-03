@@ -1,11 +1,5 @@
-import os
-from dotenv import load_dotenv
+import datetime
 
-load_dotenv()  # take environment variables from .env.
+dateandtime = datetime.now()
 
-USER = os.getenv('TEST1')
-print(USER)
-USER = os.getenv('TEST2')
-print(USER)
-USER = os.getenv('TEST3')
-print(USER)
+print(dateandtime.t)

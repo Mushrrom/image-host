@@ -4,5 +4,4 @@ __pycache__
 data
 data/aA.json
 
-# just so it doesnt keep overwriting it on the server
-configstuff.py
+

@@ -30,7 +30,7 @@ def show():
 
         if os.path.exists(f"{data_path}/users/{username}/user.json"):
             print(f"{data_path}/{username}.json")
-            with open(f"{data_path}/{username}.json") as info:
+            with open(f"{data_path}/users/{username}/user.json") as info:
                 infojson = json.load(info)
                 if infojson["token"] == token:
                     success = 0  # success

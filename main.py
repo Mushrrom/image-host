@@ -6,7 +6,7 @@ import json
 # from random import randint
 from pages.upload import upload
 from pages.view import viewimg
-
+import urllib.parse
 import configstuff
 
 configstuff.configsutff()
@@ -30,7 +30,9 @@ def hello():
 
 @app.route('/b<asd>')
 def catch_all(asd):
+    print(urllib.parse.quote(asd))
     return asd
+
 
 
 # For hosting on the server

@@ -1,14 +1,29 @@
-import requests
-from requests.structures import CaseInsensitiveDict
+ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+import urllib.parse
+coolstuff = []
+def numbertobase2(n):
+    if n == 0: return "0"
+    digits = ""
+    while n:
+        digits += str(n % 2)
+        n //= 2
+    return digits[::-1]
 
-url = "http://127.0.0.1:5000/createaccount"
+def tocoolstring(input):
+    for i in list(input):
+        e = numbertobase2(ln.index(i))
+        print(i)
+        print(ln.index(i))
+        print(e)
 
-headers = CaseInsensitiveDict()
-headers["Content-Type"] = "application/json"
+        print("-----------------")
 
-data = '{"username": "asd"}'
+print(ord("0"))
 
+# def tosmall(input):
+    # for i in list(input):
 
-resp = requests.post(url, headers=headers, data=data)
+print(numbertobase3(405))
 
-print(resp.status_code)
+tocoolstring("000")
+# tosmall("asd")

@@ -39,12 +39,13 @@ def view(file):
         fjson = json.load(f)
         user_size = fjson["storage_used"]
         user_uploads = fjson["uploads"]
-    print(f"{filename} - {tokb(int(size))}")
+    print(f"{filename} - {str(tokb(int(size)))}")
+    rettitle = f"{filename} - {tokb(int(size))}"
+    retdescription = f"{tokb(int(user_size))} uploaded in {user_uploads} by this user"
     return render_template("imgview.html", imgrawurl=f"http://{URL}/raw/image/{file}",
-                           title=f"{filename} [{tokb(int(size))}]",
-                           description=f"{tokb(int(user_size))} uploaded in {user_uploads} by this user",
+                           title=str(rettitle),
+                           description=str(retdescription),
                            imgurl="test3")
-
 
 @viewimg.route('/raw/image/<file>', methods=['GET'])
 def viewraw(file):

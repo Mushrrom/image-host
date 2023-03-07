@@ -18,12 +18,16 @@ def tocoolstring(input):
 
         print("-----------------")
 
-print(ord("0"))
+# print(ord("0"))
 
 # def tosmall(input):
     # for i in list(input):
 
-print(numbertobase3(405))
+# print(numbertobase3(405))
 
-tocoolstring("000")
+# tocoolstring("000")
 # tosmall("asd")
+
+a = "12345678"
+
+print(a[2:4])

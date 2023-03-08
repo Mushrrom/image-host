@@ -41,7 +41,7 @@ def view(file):
         user_uploads = fjson["uploads"]
     print(f"{filename} - {str(tokb(int(size)))}")
     rettitle = f"{filename} - {tokb(int(size))}"
-    retdescription = f"{tokb(int(user_size))} uploaded in {user_uploads} by this user"
+    retdescription = f"{tokb(int(user_size))} uploaded in {user_uploads} images by this user"
     return render_template("imgview.html", imgrawurl=f"http://{URL}/raw/image/{file}",
                            title=str(rettitle),
                            description=str(retdescription),

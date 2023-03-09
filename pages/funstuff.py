@@ -13,8 +13,6 @@ def funtest():
 
     img = Image.new("RGBA", (88, 31), (0, 255, 255, 255))
     d = ImageDraw.Draw(img)
-    font = ImageFont.truetype("impact.ttf", 32)
-    d.text((225, 10), "Hello", font=font, fill=(0, 0, 0, 128), anchor="ma")
 
     for x in range(88):
         for y in range(31):

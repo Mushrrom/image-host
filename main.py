@@ -6,6 +6,7 @@ import json
 # from random import randint
 from pages.upload import upload
 from pages.view import viewimg
+from pages.funstuff import funstuff
 import urllib.parse
 import configstuff
 
@@ -15,6 +16,7 @@ configstuff.configsutff()
 app = Flask(__name__)
 app.register_blueprint(upload)
 app.register_blueprint(viewimg)
+app.register_blueprint(funstuff)
 
 
 ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"

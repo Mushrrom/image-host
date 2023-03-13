@@ -29,5 +29,3 @@ def tocoolstring(input):
 # tosmall("asd")
 
 a = "12345678"
-
-print(a[2:4])

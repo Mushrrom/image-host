@@ -39,9 +39,20 @@ def view(file):
         fjson = json.load(f)
         user_size = fjson["storage_used"]
         user_uploads = fjson["uploads"]
+        user_embed_settings = fjson["settings"]["embed"]
     print(f"{filename} - {str(tokb(int(size)))}")
-    rettitle = f"{filename} - {tokb(int(size))}"
-    retdescription = f"{tokb(int(user_size))} uploaded in {user_uploads} images by this user"
+    # rettitle = f"{filename} - {tokb(int(size))}"
+    # retdescription = f"{tokb(int(user_size))} uploaded in {user_uploads} images by this user"
+    rettitle = user_embed_settings["title"].replace("{filename}", filename)
+    rettitle = rettitle.replace("{filesize}", tokb(int(size)))
+    rettitle = rettitle.replace("{user_storage}", tokb(int(user_size)))
+    rettitle = rettitle.replace("{user_uploads}", str(user_uploads))
+
+    retdescription = user_embed_settings["title"].replace("{filename}", filename)
+    retdescription = retdescription.replace("{filesize}", tokb(int(size)))
+    retdescription = retdescription.replace("{user_storage}", tokb(int(user_size)))
+    retdescription = retdescription.replace("{user_uploads}", str(user_uploads))
+    print(rettitle)
     return render_template("imgview.html", imgrawurl=f"http://{URL}/raw/image/{file}",
                            title=str(rettitle),
                            description=str(retdescription),

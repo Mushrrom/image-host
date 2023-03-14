@@ -41,7 +41,14 @@ else:
         os.mkdir(f"{data_path}/users/{username}/images")
         os.mkdir(f"{images_path}/{username}")
         with open(f"{data_path}/users/{username}/user.json", "w") as f:
-            data = {"token": token, "storage_used": 0, "uploads": 0, "public_name": "example", "creationdate": time.time()}
+            data = {"token": token, "storage_used": 0, "uploads": 0, "public_name": "example",
+                    "creationdate": time.time(), "settings": {
+                                                              "embed": {
+                                                                  "title": "{filename} - {filesize}",
+                                                                  "description": "{user_storage} uploaded in {"
+                                                                                 "user_uploads} images by this user "
+                                                              }}
+                    }
             json.dump(data, f)
     else:
         print("Username already used")

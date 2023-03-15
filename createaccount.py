@@ -39,6 +39,7 @@ if len(sys.argv) == 2:
                                                               }}
                     }
             i = 1
+            json.dump(data, f)
 else:
     username = sys.argv[2]
     if not os.path.exists(f"{data_path}/users/{username}"):

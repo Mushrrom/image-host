@@ -52,7 +52,7 @@ def view(file):
                                                          user_uploads=user_uploads)
 
     print(rettitle)
-    return render_template("imgview.html", imgrawurl=f"http://{URL}/raw/image/{file}",
+    return render_template("imgview.html", imgrawurl=f"{URL}/raw/image/{file}",
                            title=str(rettitle),
                            description=str(retdescription),
                            imgurl="test3")

@@ -31,8 +31,13 @@ if len(sys.argv) == 2:
             os.mkdir(f"{images_path}/{username}")
             with open(f"{data_path}/users/{username}/user.json", "w") as f:
                 data = {"token": token, "storage_used": 0, "uploads": 0, "public_name": "example",
-                        "creationdate": time.time()}
-                json.dump(data, f)
+                    "creationdate": time.time(), "settings": {
+                                                              "embed": {
+                                                                  "title": "{filename} - {filesize}",
+                                                                  "description": "{user_storage} uploaded in {"
+                                                                                 "user_uploads} images by this user "
+                                                              }}
+                    }
             i = 1
 else:
     username = sys.argv[2]

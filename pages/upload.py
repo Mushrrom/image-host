@@ -5,6 +5,7 @@ from random import randint
 import configstuff
 configstuff.configsutff()
 from datetime import datetime
+import random
 ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 upload = Blueprint('upload', __name__, template_folder='templates')
 
@@ -66,7 +67,8 @@ def show():
                                     "second": cd.second
                                 },
                                 "filename": image.filename,
-                                "already_image_exists": False}
+                                "already_image_exists": False,
+                                "deletion_token": ''.join(random.choice(ln) for _ in range(30))}
                     json.dump(infojson, f)
                 return jsonify({"success": True, "url": img_url})
         else:

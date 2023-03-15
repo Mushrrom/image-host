@@ -28,4 +28,8 @@ def tocoolstring(input):
 # tocoolstring("000")
 # tosmall("asd")
 
-a = "12345678"
+def returnstring():
+    print("asdd")
+    return "aaa"
+
+print("{c} hehe {b}".format(a=returnstring(),b="bbb", c="asda"))

@@ -4,6 +4,7 @@ import configstuff
 import random
 import json
 import time
+
 # This is for creating accounts on the server idk if I will create a better way to do this
 configstuff.configsutff()
 
@@ -31,13 +32,15 @@ if len(sys.argv) == 2:
             os.mkdir(f"{images_path}/{username}")
             with open(f"{data_path}/users/{username}/user.json", "w") as f:
                 data = {"token": token, "storage_used": 0, "uploads": 0, "public_name": "example",
-                    "creationdate": time.time(), "settings": {
-                                                              "embed": {
-                                                                  "title": "{filename} - {filesize}",
-                                                                  "description": "{user_storage} uploaded in {"
-                                                                                 "user_uploads} images by this user "
-                                                              }}
-                    }
+                        "creationdate": time.time(), "settings": {
+                        "embed": {
+                            "title": "{filename} - {filesize}",
+                            "description": "{user_storage} uploaded in {"
+                                           "user_uploads} images by this user "
+                        }},
+                        "user_level": 1
+
+                        }
             i = 1
             json.dump(data, f)
 else:
@@ -49,17 +52,15 @@ else:
         with open(f"{data_path}/users/{username}/user.json", "w") as f:
             data = {"token": token, "storage_used": 0, "uploads": 0, "public_name": "example",
                     "creationdate": time.time(), "settings": {
-                                                              "embed": {
-                                                                  "title": "{filename} - {filesize}",
-                                                                  "description": "{user_storage} uploaded in {"
-                                                                                 "user_uploads} images by this user "
-                                                              }}
+                    "embed": {
+                        "title": "{filename} - {filesize}",
+                        "description": "{user_storage} uploaded in {"
+                                       "user_uploads} images by this user "
+                    }}
                     }
             json.dump(data, f)
     else:
         print("Username already used")
         quit()
 
-
 print(f"created account with username: {username} and token: {token}")
-

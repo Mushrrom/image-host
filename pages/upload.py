@@ -17,20 +17,15 @@ data_path = os.environ.get("data_path")
 @upload.route('/upload', methods=['POST', 'GET'])
 def show():
     # okay but python is not slow at all this crap takes less than 0.01 seconds wtf
-    print(datetime.now())
     if request.method == 'GET':
-        print(request)
         return "get"
     else:
         [username, token, url] = [request.form["username"], request.form["token"], request.form["url"]]
 
         image = request.files.get("file")
-        print(image.filename)
-        print(path)
         # Save the image to disk
 
         if os.path.exists(f"{data_path}/users/{username}/user.json"):
-            print(f"{data_path}/{username}.json")
             with open(f"{data_path}/users/{username}/user.json") as info:
                 infojson = json.load(info)
                 if infojson["token"] == token:

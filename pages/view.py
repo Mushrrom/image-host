@@ -10,7 +10,6 @@ URL = os.environ.get("URL")
 path = os.environ.get("main_path")
 data_path = os.environ.get("data_path")
 image_path = os.environ.get("images_path")
-print(image_path)
 viewimg = Blueprint('viewimg', __name__, template_folder='templates')
 
 
@@ -31,6 +30,7 @@ def tokb(inp):
 @viewimg.route('/image/<file>', methods=['GET'])
 def view(file):
     [size, upload_time, filename, user_size, user_uploads] = ["", {}, "", "", ""]
+    if not os.path.exists(f"{data_path}/users/{file[:2]}/images/{file[2:6]}.json"): return "no image"
     with open(f"{data_path}/users/{file[:2]}/images/{file[2:6]}.json", "r") as f:
         fjson = json.load(f)
         size = tokb(int(fjson["size"]))
@@ -51,7 +51,6 @@ def view(file):
     retdescription = user_embed_settings["description"].format(filename=filename, filesize=size, user_storage=user_size,
                                                          user_uploads=user_uploads)
 
-    print(rettitle)
     return render_template("imgview.html", imgrawurl=f"{URL}/raw/image/{file}",
                            title=str(rettitle),
                            description=str(retdescription),
@@ -60,6 +59,5 @@ def view(file):
 
 @viewimg.route('/raw/image/<file>', methods=['GET'])
 def viewraw(file):
-    print(f"{image_path}/{file[:2]}/{file[2:]}")
     return send_file(f"{image_path}/{file[:2]}/{file[2:]}")
     # return send_file(f"images/{file[:2]}/{file[2:]}", mimetype='image/png')

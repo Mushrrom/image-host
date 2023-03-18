@@ -7,6 +7,7 @@ import json
 from pages.upload import upload
 from pages.view import viewimg
 from pages.funstuff import funstuff
+from pages.delete import delete
 import urllib.parse
 import configstuff
 
@@ -17,7 +18,7 @@ app = Flask(__name__)
 app.register_blueprint(upload)
 app.register_blueprint(viewimg)
 app.register_blueprint(funstuff)
-
+app.register_blueprint(delete)
 
 ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 

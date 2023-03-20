@@ -6,3 +6,5 @@ data/aA.json
 
 test.py
 configstuff.py
+
+./test.py

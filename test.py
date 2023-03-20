@@ -1,6 +1,10 @@
+import string
+
 ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 import urllib.parse
 coolstuff = []
+import random
+print(''.join(random.choice(ln) for _ in range(30)))
 def numbertobase2(n):
     if n == 0: return "0"
     digits = ""
@@ -25,11 +29,6 @@ def tocoolstring(input):
 
 # print(numbertobase3(405))
 
-# tocoolstring("000")
-# tosmall("asd")
-
-def returnstring():
-    print("asdd")
-    return "aaa"
-
-print("{c} hehe {b}".format(a=returnstring(),b="bbb", c="asda"))
+a = 5
+a -= 1
+print(a)

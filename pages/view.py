@@ -27,7 +27,7 @@ def tokb(inp):
     return out
 
 
-@viewimg.route('/image/<file>', methods=['GET'])
+@viewimg.route('/i<file>', methods=['GET'])
 def view(file):
     [size, upload_time, filename, user_size, user_uploads] = ["", {}, "", "", ""]
     if not os.path.exists(f"{data_path}/users/{file[:2]}/images/{file[2:6]}.json"): return "no image"
@@ -56,6 +56,10 @@ def view(file):
                            description=str(retdescription),
                            imgurl="test3")
 
+
+@viewimg.route('/image/<file>', methods=['GET'])
+def viewold(file):
+    return view(file)
 
 @viewimg.route('/raw/image/<file>', methods=['GET'])
 def viewraw(file):

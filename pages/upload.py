@@ -40,6 +40,7 @@ def show():
                 image.save(f'{path}/images/{username}/{img_name}.{image.filename.split(".")[-1]}')
                 img_url = f'{url}/image/{username}{img_name}.{image.filename.split(".")[-1]}'
 
+                deletion_token = ''.join(random.choice(ln) for _ in range(30))
                 infojson = {}
                 with open(f"{data_path}/users/{username}/user.json", "r") as info:
                     infojson = json.load(info)
@@ -63,9 +64,9 @@ def show():
                                 },
                                 "filename": image.filename,
                                 "already_image_exists": False,
-                                "deletion_token": ''.join(random.choice(ln) for _ in range(30))}
+                                "deletion_token": deletion_token}
                     json.dump(infojson, f)
-                return jsonify({"success": True, "url": img_url})
+                return jsonify({"success": True, "url": img_url, "deletion_url": f"{URL}/delete/{username}{img_name}/{deletion_token}"})
         else:
             print(success)
             return jsonify({"success": False, "error_message": "Token or username or something idk"})

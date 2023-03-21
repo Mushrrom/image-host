@@ -23,7 +23,9 @@ def deleteimage(img, token):
 
     if image_deletion_token == token:
         os.remove(f"{data_path}/users/{img[:2]}/images/{img[2:6]}.json")
-        os.remove(f"{images_path}/{img[:2]}/{img[2:]}")
+        for fname in os.listdir(f"{images_path}/{img[:2]}"):
+            if fname.startswith(img[2:]):
+                os.remove(f"{images_path}/{img[:2]}/{fname}")
         return "deleted image"
     else:
         return "wrong token >:("

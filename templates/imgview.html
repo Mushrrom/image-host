@@ -13,11 +13,21 @@
       <meta name="twitter:description" content="{{description}}">
       <meta property="og:description" content="{{description}}">
       <link type="application/json+oembed" href="{{ imgurl }}">
-
+      <style>
+          .image {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+          }
+      </style>
 
 
   </head>
   <body>
-    <img src="{{imgrawurl}}" alt="{{imgrawurl}}">
+      <div class="image">
+          HELLO
+        <img src="{{imgrawurl}}" alt="{{title}}" style="max-height: 75vh; width: auto; max-width: 100%">
+      </div>
+
   </body>
 </html>

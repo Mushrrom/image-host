@@ -22,6 +22,12 @@ def deleteimage(img, token):
         image_deletion_token = fjson["deletion_token"]
 
     if image_deletion_token == token:
+        imgsize = 0
+        with open(f"{data_path}/users/{img[:2]}/images/{img[2:6]}.json", "r") as f:
+            fjson = json.loads(f.read())
+            imgsize = int(fjson["size"])
+
+
         os.remove(f"{data_path}/users/{img[:2]}/images/{img[2:6]}.json")
         for fname in os.listdir(f"{images_path}/{img[:2]}"):
             if fname.startswith(img[2:6]):

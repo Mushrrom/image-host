@@ -4,7 +4,7 @@ ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 import urllib.parse
 coolstuff = []
 import random
-print(''.join(random.choice(ln) for _ in range(30)))
+print("123456"[2:6])
 def numbertobase2(n):
     if n == 0: return "0"
     digits = ""
@@ -28,7 +28,7 @@ def tocoolstring(input):
     # for i in list(input):
 
 # print(numbertobase3(405))
-
+# a
 a = 5
 a -= 1
 print(a)

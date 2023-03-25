@@ -32,7 +32,7 @@ def deleteimage(img, token):
                 os.remove(f"{images_path}/{img[:2]}/{fname}")
                 found = True
 
-        if not found == True:
+        if not found:
             return "err"
 
         imgsize = 0

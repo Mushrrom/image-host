@@ -37,7 +37,6 @@ def catch_all(asd):
     return asd
 
 
-
 # For hosting on the server
 if __name__ == "__main__":
         app.run()

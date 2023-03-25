@@ -51,7 +51,7 @@ def view(file):
     retdescription = user_embed_settings["description"].format(filename=filename, filesize=size, user_storage=user_size,
                                                          user_uploads=user_uploads)
 
-    return render_template("imgview.html", imgrawurl=f"{URL}/raw/image/{file}",
+    return render_template("imgview.html", imgrawurl=f"{URL}/raw/image/{file[:2]}{filename}",
                            title=str(rettitle),
                            description=str(retdescription),
                            imgurl="test3")

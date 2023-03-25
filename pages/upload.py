@@ -3,9 +3,10 @@ import json
 import os
 from random import randint
 import configstuff
-configstuff.configsutff()
 from datetime import datetime
 import random
+
+configstuff.configsutff()
 ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 upload = Blueprint('upload', __name__, template_folder='templates')
 
@@ -30,14 +31,17 @@ def show():
                 infojson = json.load(info)
                 if infojson["token"] == token:
                     success = 0  # success
-                else: success = 1  # wrong token
-        else: success = 2  # wrong token
+                else:
+                    success = 1  # wrong token
+        else:
+            success = 2  # wrong token
         # lol i hope this random code wasn't important
 
         if success == 0:
             if image.mimetype.startswith("image"):
+                print(image.filename)
                 img_name = f"{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}"
-                image.save(f'{path}/images/{username}/{img_name}.{image.filename.split(".")[-1]}')
+                image.save(f'{path}/images/{username}/{image.filename}')
                 img_url = f'{url}/image/{username}{img_name}.{image.filename.split(".")[-1]}'
 
                 deletion_token = ''.join(random.choice(ln) for _ in range(30))
@@ -51,7 +55,7 @@ def show():
                     json.dump(infojson, info)
 
                 with open(f"{data_path}/users/{username}/images/{img_name}.json", "w") as f:
-                    cd = datetime.now() #cd = current date
+                    cd = datetime.now()  # cd = current date
                     infojson = {"size": os.fstat(image.fileno()).st_size,
                                 "date": str(datetime.now()),
                                 "timeinfo": {
@@ -64,7 +68,8 @@ def show():
                                 },
                                 "filename": image.filename,
                                 "already_image_exists": False,
-                                "deletion_token": deletion_token}
+                                "deletion_token": deletion_token,
+                                }
                     json.dump(infojson, f)
                 return jsonify({"success": True, "url": img_url, "deletion_url": f"{URL}/delete/{username}{img_name}/{deletion_token}"})
         else:

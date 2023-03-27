@@ -42,7 +42,7 @@ def show():
                 print(image.filename)
                 img_name = f"{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}"
                 image.save(f'{path}/images/{username}/{image.filename}')
-                img_url = f'{url}/image/{username}{img_name}.{image.filename.split(".")[-1]}'
+                img_url = f'{url}/i{username}{img_name}.{image.filename.split(".")[-1]}'
 
                 deletion_token = ''.join(random.choice(ln) for _ in range(30))
                 infojson = {}

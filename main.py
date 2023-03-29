@@ -36,6 +36,17 @@ def catch_all(asd):
     print(urllib.parse.quote(asd))
     return asd
 
+@app.route("/‌2<image>")
+def zwnj(image):
+    print([image[i:i+3] for i in range(0, len(image), 3)])
+    print(urllib.parse.quote("​"))
+    print(urllib.parse.quote("‍"))
+    print(urllib.parse.quote("‌"))
+
+
+    return "zero wodth"
+
+
 
 # For hosting on the server
 if __name__ == "__main__":

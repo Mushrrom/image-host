@@ -3,6 +3,7 @@ import json
 from flask import Flask, request, send_file, jsonify, render_template, Blueprint
 import os
 import configstuff
+import urllib.parse
 
 configstuff.configsutff()
 
@@ -11,6 +12,8 @@ path = os.environ.get("main_path")
 data_path = os.environ.get("data_path")
 image_path = os.environ.get("images_path")
 viewimg = Blueprint('viewimg', __name__, template_folder='templates')
+
+ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 
 
 def tokb(inp):
@@ -49,7 +52,7 @@ def view(file):
                                                    user_uploads=user_uploads)
 
     retdescription = user_embed_settings["description"].format(filename=filename, filesize=size, user_storage=user_size,
-                                                         user_uploads=user_uploads)
+                                                               user_uploads=user_uploads)
 
     return render_template("imgview.html", imgrawurl=f"{URL}/raw/image/{file[:2]}{filename}",
                            title=str(rettitle),
@@ -57,9 +60,40 @@ def view(file):
                            imgurl="test3")
 
 
+# For zero width characters: For if you are using an editor that doesn't show, this is @viewimg.route("/[ZWNJ]<file")
+@viewimg.route("/‌<file>")
+def viewzerowidth(file):
+    filestring = urllib.parse.quote(file).split("%E2%80%8")[1:]  # Now it will just be a list like ["B", "C", "D"]
+    filestring = [filestring[i:i + 4] for i in range(0, len(filestring), 4)]
+    if not len(filestring[-1]) == 4:
+        return "err: Filstring not divisible by 3"
+
+    imagestring = ""
+    base_3_dict = {'B': 0, 'C': 1, 'D': 2}
+    # This whole thing is base 3
+    # B is 0
+    # C is 1
+    # D is 2
+
+    for i in filestring:
+        n = 0
+        # Convert to base 10
+        for j, c in enumerate(i[::-1]):
+            n += base_3_dict[c] * (3 ** j)
+
+        try:
+            imagestring += ln[n]
+        except:
+            return "Image string wrong idk what you did"
+
+    print(imagestring)
+    return view(imagestring)
+
+
 @viewimg.route('/image/<file>', methods=['GET'])
 def viewold(file):
     return view(file)
+
 
 @viewimg.route('/raw/image/<file>', methods=['GET'])
 def viewraw(file):

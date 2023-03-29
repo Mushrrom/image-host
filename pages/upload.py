@@ -14,10 +14,30 @@ URL = os.environ.get("URL")
 path = os.environ.get("main_path")
 data_path = os.environ.get("data_path")
 
+def numbertobase3(n):
+    if n == 0: return "0000"
+    digits = ""
+    while n:
+        digits += str(n % 3)
+        n //= 3
+    while len(digits)< 4:
+        digits += "0"
+    return digits[::-1]
+
+def tocoolstring(input):
+    retstring = ""
+    for i in list(input):
+        e = numbertobase3(ln.index(i))
+        invischars = "​‌‍"
+        for j in e:
+            retstring += invischars[int(j)]
+
+
+    return retstring
+
 
 @upload.route('/upload', methods=['POST', 'GET'])
 def show():
-    # okay but python is not slow at all this crap takes less than 0.01 seconds wtf
     if request.method == 'GET':
         return "get"
     else:
@@ -35,14 +55,14 @@ def show():
                     success = 1  # wrong token
         else:
             success = 2  # wrong token
-        # lol i hope this random code wasn't important
+        # lol I hope this random code wasn't important
 
         if success == 0:
             if image.mimetype.startswith("image"):
-                print(image.filename)
+                docoolstrings = False
                 img_name = f"{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}"
                 image.save(f'{path}/images/{username}/{image.filename}')
-                img_url = f'{url}/i{username}{img_name}.{image.filename.split(".")[-1]}'
+
 
                 deletion_token = ''.join(random.choice(ln) for _ in range(30))
                 infojson = {}
@@ -71,6 +91,11 @@ def show():
                                 "deletion_token": deletion_token,
                                 }
                     json.dump(infojson, f)
+                    if docoolstrings:
+                        img_name = f"‌{tocoolstring(username+img_name)}"
+                    else:
+                        img_name = f"i{username}{img_name}"
+                    img_url = f'{url}/{img_name}'
                 return jsonify({"success": True, "url": img_url, "deletion_url": f"{URL}/delete/{username}{img_name}/{deletion_token}"})
         else:
             print(success)

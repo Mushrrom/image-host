@@ -59,7 +59,7 @@ def show():
 
         if success == 0:
             if image.mimetype.startswith("image"):
-                docoolstrings = False
+                docoolstrings = True
                 img_name = f"{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}"
                 image.save(f'{path}/images/{username}/{image.filename}')
 

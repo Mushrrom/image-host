@@ -14,6 +14,7 @@ URL = os.environ.get("URL")
 path = os.environ.get("main_path")
 data_path = os.environ.get("data_path")
 
+
 def numbertobase3(n):
     if n == 0: return "0000"
     digits = ""
@@ -24,14 +25,17 @@ def numbertobase3(n):
         digits += "0"
     return digits[::-1]
 
+
 def tocoolstring(input):
+    # Input is just the name of the image e.g aA1234
     retstring = ""
     for i in list(input):
+        # Basically just converts it to base 3 then uses that to make the image
         e = numbertobase3(ln.index(i))
+        # ZWSP ZWNJ ZWJ in this variable
         invischars = "​‌‍"
         for j in e:
             retstring += invischars[int(j)]
-
 
     return retstring
 
@@ -44,8 +48,8 @@ def show():
         [username, token, url] = [request.form["username"], request.form["token"], request.form["url"]]
 
         image = request.files.get("file")
-        # Save the image to disk
 
+        #check token and username:
         if os.path.exists(f"{data_path}/users/{username}/user.json"):
             with open(f"{data_path}/users/{username}/user.json") as info:
                 infojson = json.load(info)
@@ -54,16 +58,16 @@ def show():
                 else:
                     success = 1  # wrong token
         else:
-            success = 2  # wrong token
-        # lol I hope this random code wasn't important
+            success = 2  # wrong username
 
         if success == 0:
             if image.mimetype.startswith("image"):
                 docoolstrings = True
+                #Get image name string and save image
                 img_name = f"{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}"
                 image.save(f'{path}/images/{username}/{image.filename}')
 
-
+                # Get deletion token and save image info
                 deletion_token = ''.join(random.choice(ln) for _ in range(30))
                 infojson = {}
                 with open(f"{data_path}/users/{username}/user.json", "r") as info:
@@ -91,8 +95,10 @@ def show():
                                 "deletion_token": deletion_token,
                                 }
                     json.dump(infojson, f)
+
+                    # Get url to return to user
                     if docoolstrings:
-                        img_name = f"‌{tocoolstring(username+img_name)}"
+                        img_name = f"‌{tocoolstring(username+img_name)}" # Has ZWNJ at start
                     else:
                         img_name = f"i{username}{img_name}"
                     img_url = f'{url}/{img_name}'

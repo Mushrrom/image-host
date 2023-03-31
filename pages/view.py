@@ -19,7 +19,8 @@ ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 def tokb(inp):
     a = True
     times = 0
-    while a == True:
+    # Convert to kb/mb/gb
+    while a:
         if inp / 1000 >= 1:
             inp = inp / 1000
             times += 1
@@ -45,8 +46,6 @@ def view(file):
         user_size = tokb(int(fjson["storage_used"]))
         user_uploads = fjson["uploads"]
         user_embed_settings = fjson["settings"]["embed"]
-    # rettitle = f"{filename} - {tokb(int(size))}"
-    # retdescription = f"{tokb(int(user_size))} uploaded in {user_uploads} images by this user"
 
     rettitle = user_embed_settings["title"].format(filename=filename, filesize=size, user_storage=user_size,
                                                    user_uploads=user_uploads)

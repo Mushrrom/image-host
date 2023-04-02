@@ -49,7 +49,7 @@ def show():
 
         image = request.files.get("file")
 
-        #check token and username:
+        # check token and username:
         if os.path.exists(f"{data_path}/users/{username}/user.json"):
             with open(f"{data_path}/users/{username}/user.json") as info:
                 infojson = json.load(info)
@@ -63,15 +63,14 @@ def show():
         if success == 0:
             if image.mimetype.startswith("image"):
                 docoolstrings = True
-                #Get image name string and save image
+                # Get image name string and save image
                 img_name = f"{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}"
                 image.save(f'{path}/images/{username}/{image.filename}')
 
                 # Get deletion token and save image info
                 deletion_token = ''.join(random.choice(ln) for _ in range(30))
-                infojson = {}
                 with open(f"{data_path}/users/{username}/user.json", "r") as info:
-                    infojson = json.load(info)
+                    infojson: any = json.load(info)
                     infojson["uploads"] += 1
                     infojson["storage_used"] += os.fstat(image.fileno()).st_size
 

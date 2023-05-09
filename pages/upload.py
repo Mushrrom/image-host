@@ -21,7 +21,7 @@ def numbertobase3(n):
     while n:
         digits += str(n % 3)
         n //= 3
-    while len(digits)< 4:
+    while len(digits) < 4:
         digits += "0"
     return digits[::-1]
 
@@ -40,7 +40,7 @@ def tocoolstring(input):
     return retstring
 
 
-@upload.route('/upload', methods=['POST', 'GET'])
+@upload.route('/api/upload', methods=['POST', 'GET'])
 def show():
     if request.method == 'GET':
         return "get"
@@ -62,7 +62,7 @@ def show():
 
         if success == 0:
             if image.mimetype.startswith("image"):
-                docoolstrings = True
+                docoolstrings = True #  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAAAAAAAAAAA
                 # Get image name string and save image
                 img_name = f"{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}"
                 image.save(f'{path}/images/{username}/{image.filename}')
@@ -97,11 +97,12 @@ def show():
 
                     # Get url to return to user
                     if docoolstrings:
-                        img_name = f"‌{tocoolstring(username+img_name)}" # Has ZWNJ at start
+                        img_url = f'{url}/‌{tocoolstring(username + img_name)}'  # URL has ZWNJ after the {url}/
                     else:
-                        img_name = f"i{username}{img_name}"
-                    img_url = f'{url}/{img_name}'
-                return jsonify({"success": True, "url": img_url, "deletion_url": f"{URL}/delete/{username}{img_name}/{deletion_token}"})
+                        img_name = f"{username}{img_name}"
+                        img_url = f'{url}/i{img_name}'
+                return jsonify({"success": True, "url": img_url,
+                                "deletion_url": f"{URL}/api/delete/{username}{img_name}/{deletion_token}"})
         else:
             print(success)
             return jsonify({"success": False, "error_message": "Token or username or something idk"})

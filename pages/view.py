@@ -53,7 +53,7 @@ def view(file):
     retdescription = user_embed_settings["description"].format(filename=filename, filesize=size, user_storage=user_size,
                                                                user_uploads=user_uploads)
 
-    return render_template("imgview.html", imgrawurl=f"{URL}/raw/image/{file[:2]}{filename}",
+    return render_template("imgview.html", imgrawurl=f"{URL}/api/image/raw/{file[:2]}{filename}",
                            title=str(rettitle),
                            description=str(retdescription),
                            imgurl="test3")
@@ -94,7 +94,7 @@ def viewold(file):
     return view(file)
 
 
-@viewimg.route('/raw/image/<file>', methods=['GET'])
+@viewimg.route('/api/image/raw/<file>', methods=['GET'])
 def viewraw(file):
     return send_file(f"{image_path}/{file[:2]}/{file[2:]}")
     # return send_file(f"images/{file[:2]}/{file[2:]}", mimetype='image/png')

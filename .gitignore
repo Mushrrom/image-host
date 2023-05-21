@@ -3,7 +3,7 @@ __pycache__
 .idea
 data
 data/aA.json
-
+data.json
 test.py
 configstuff.py
 

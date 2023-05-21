@@ -44,65 +44,64 @@ def tocoolstring(input):
 def show():
     if request.method == 'GET':
         return "get"
+    [username, token, url] = [request.form["username"], request.form["token"], request.form["url"]]
+
+    image = request.files.get("file")
+
+    # check token and username:
+    if os.path.exists(f"{data_path}/users/{username}/user.json"):
+        with open(f"{data_path}/users/{username}/user.json") as info:
+            infojson = json.load(info)
+            if infojson["token"] == token:
+                success = 0  # success
+            else:
+                success = 1  # wrong token
     else:
-        [username, token, url] = [request.form["username"], request.form["token"], request.form["url"]]
+        success = 2  # wrong username
 
-        image = request.files.get("file")
+    if not success == 0:
+        return jsonify({"success": False, "error_message": "Token or username or something idk"})
 
-        # check token and username:
-        if os.path.exists(f"{data_path}/users/{username}/user.json"):
-            with open(f"{data_path}/users/{username}/user.json") as info:
-                infojson = json.load(info)
-                if infojson["token"] == token:
-                    success = 0  # success
-                else:
-                    success = 1  # wrong token
-        else:
-            success = 2  # wrong username
+    if image.mimetype.startswith("image"):
+        docoolstrings = True
+        # Get image name string and save image
+        img_name = f"{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}"
+        image.save(f'{path}/images/{username}/{image.filename}')
 
-        if success == 0:
-            if image.mimetype.startswith("image"):
-                docoolstrings = True #  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAAAAAAAAAAA
-                # Get image name string and save image
-                img_name = f"{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}"
-                image.save(f'{path}/images/{username}/{image.filename}')
+        # Get deletion token and save image info
+        deletion_token = ''.join(random.choice(ln) for _ in range(30))
+        with open(f"{data_path}/users/{username}/user.json", "r") as info:
+            infojson: any = json.load(info)
+            infojson["uploads"] += 1
+            infojson["storage_used"] += os.fstat(image.fileno()).st_size
 
-                # Get deletion token and save image info
-                deletion_token = ''.join(random.choice(ln) for _ in range(30))
-                with open(f"{data_path}/users/{username}/user.json", "r") as info:
-                    infojson: any = json.load(info)
-                    infojson["uploads"] += 1
-                    infojson["storage_used"] += os.fstat(image.fileno()).st_size
+        with open(f"{data_path}/users/{username}/user.json", "w") as info:
+            json.dump(infojson, info)
 
-                with open(f"{data_path}/users/{username}/user.json", "w") as info:
-                    json.dump(infojson, info)
+        with open(f"{data_path}/users/{username}/images/{img_name}.json", "w") as f:
+            cd = datetime.now()  # cd = current date
+            infojson = {"size": os.fstat(image.fileno()).st_size,
+                        "date": str(datetime.now()),
+                        "timeinfo": {
+                            "year": cd.year,
+                            "month": cd.month,
+                            "day": cd.day,
+                            "hour": cd.hour,
+                            "minute": cd.minute,
+                            "second": cd.second
+                        },
+                        "filename": image.filename,
+                        "already_image_exists": False,
+                        "deletion_token": deletion_token,
+                        }
+            json.dump(infojson, f)
 
-                with open(f"{data_path}/users/{username}/images/{img_name}.json", "w") as f:
-                    cd = datetime.now()  # cd = current date
-                    infojson = {"size": os.fstat(image.fileno()).st_size,
-                                "date": str(datetime.now()),
-                                "timeinfo": {
-                                    "year": cd.year,
-                                    "month": cd.month,
-                                    "day": cd.day,
-                                    "hour": cd.hour,
-                                    "minute": cd.minute,
-                                    "second": cd.second
-                                },
-                                "filename": image.filename,
-                                "already_image_exists": False,
-                                "deletion_token": deletion_token,
-                                }
-                    json.dump(infojson, f)
+            # Get url to return to user
+            if docoolstrings:
+                img_url = f'{url}/‌{tocoolstring(username + img_name)}'  # URL has ZWNJ after the {url}/
+            else:
+                img_name = f"{username}{img_name}"
+                img_url = f'{url}/i{img_name}'
+        return jsonify({"success": True, "url": img_url,
+                        "deletion_url": f"{URL}/api/delete/{username}{img_name}/{deletion_token}"})
 
-                    # Get url to return to user
-                    if docoolstrings:
-                        img_url = f'{url}/‌{tocoolstring(username + img_name)}'  # URL has ZWNJ after the {url}/
-                    else:
-                        img_name = f"{username}{img_name}"
-                        img_url = f'{url}/i{img_name}'
-                return jsonify({"success": True, "url": img_url,
-                                "deletion_url": f"{URL}/api/delete/{username}{img_name}/{deletion_token}"})
-        else:
-            print(success)
-            return jsonify({"success": False, "error_message": "Token or username or something idk"})

@@ -8,6 +8,8 @@ from pages.upload import upload
 from pages.view import viewimg
 from pages.funstuff import funstuff
 from pages.delete import delete
+from pages.account.create import create
+
 import urllib.parse
 import configstuff
 
@@ -19,6 +21,7 @@ app.register_blueprint(upload)
 app.register_blueprint(viewimg)
 app.register_blueprint(funstuff)
 app.register_blueprint(delete)
+app.register_blueprint(create)
 
 ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 

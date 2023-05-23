@@ -39,7 +39,9 @@ def tocoolstring(input):
 
     return retstring
 
-
+# TODO:
+# - Make the thing add users username and password to user info thingy
+# - Add sxcu files
 @upload.route('/api/upload', methods=['POST', 'GET'])
 def show():
     if request.method == 'GET':
@@ -63,7 +65,7 @@ def show():
         return jsonify({"success": False, "error_message": "Token or username or something idk"})
 
     if image.mimetype.startswith("image"):
-        docoolstrings = True
+        docoolstrings = False
         # Get image name string and save image
         img_name = f"{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}{ln[randint(0, 61)]}"
         image.save(f'{path}/images/{username}/{image.filename}')
@@ -97,11 +99,11 @@ def show():
             json.dump(infojson, f)
 
             # Get url to return to user
+            img_name = f"{username}{img_name}"
             if docoolstrings:
-                img_url = f'{url}/‌{tocoolstring(username + img_name)}'  # URL has ZWNJ after the {url}/
+                img_url = f'{url}/‌{tocoolstring(img_name)}'  # URL has ZWNJ after the {url}/
             else:
-                img_name = f"{username}{img_name}"
                 img_url = f'{url}/i{img_name}'
         return jsonify({"success": True, "url": img_url,
-                        "deletion_url": f"{URL}/api/delete/{username}{img_name}/{deletion_token}"})
+                        "deletion_url": f"{URL}/api/delete/{img_name}/{deletion_token}"})
 

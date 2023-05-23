@@ -85,7 +85,6 @@ def viewzerowidth(file):
         except:
             return "Image string wrong idk what you did"
 
-    print(imagestring)
     return view(imagestring)
 
 

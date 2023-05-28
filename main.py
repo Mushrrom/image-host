@@ -1,22 +1,10 @@
-import os
-
-from flask import Flask, request, send_file, jsonify, render_template
-import json
-# import os
-# from random import randint
+from flask import Flask
 from pages.upload import upload
 from pages.view import viewimg
 from pages.funstuff import funstuff
 from pages.delete import delete
 from pages.account.create import create
 from pages.account.getconfig import getconfig
-
-
-import urllib.parse
-import configstuff
-
-configstuff.configsutff()
-
 
 app = Flask(__name__)
 app.register_blueprint(upload)
@@ -26,31 +14,6 @@ app.register_blueprint(delete)
 app.register_blueprint(create)
 app.register_blueprint(getconfig)
 
-ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
-
-URL = os.environ.get("URL")
-
-
-@app.route('/')
-def hello():
-    print("hehehe")
-    return 'Hello, World!'
-
-
-@app.route('/b<asd>')
-def catch_all(asd):
-    print(urllib.parse.quote(asd))
-    return asd
-
-@app.route("/‌2<image>")
-def zwnj(image):
-    print([image[i:i+3] for i in range(0, len(image), 3)])
-    print(urllib.parse.quote("​"))
-    print(urllib.parse.quote("‍"))
-    print(urllib.parse.quote("‌"))
-
-
-    return "zero wodth"
 
 
 

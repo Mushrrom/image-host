@@ -39,15 +39,16 @@ def tocoolstring(input):
 
     return retstring
 
-# TODO:
-# - Make the thing add users username and password to user info thingy
-# - Add sxcu files
+
 @upload.route('/api/upload', methods=['POST', 'GET'])
 def show():
     if request.method == 'GET':
         return "get"
-    [username, token, url] = [request.form["username"], request.form["token"], request.form["url"]]
-
+    url = request.form["url"]
+    token = request.form["auth"][2:]
+    username = request.form["auth"][:2]
+    print(token)
+    print(username)
     image = request.files.get("file")
 
     # check token and username:

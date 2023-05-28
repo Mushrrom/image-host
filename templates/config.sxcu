@@ -1,0 +1,16 @@
+{
+  "Version": "15.0.0",
+  "Name": "upload service",
+  "DestinationType": "ImageUploader",
+  "RequestMethod": "POST",
+  "RequestURL": "https://{{url}}/api/upload",
+  "Body": "MultipartFormData",
+  "Arguments": {
+    "url": "{{url}}",
+    "auth": "{{auth}}"
+  },
+  "FileFormName": "file",
+  "URL": "{json:url}",
+  "DeletionURL": "{json:deletion_url}",
+  "ErrorMessage": "{json:error_message}"
+}

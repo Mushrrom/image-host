@@ -9,6 +9,8 @@ from pages.view import viewimg
 from pages.funstuff import funstuff
 from pages.delete import delete
 from pages.account.create import create
+from pages.account.getconfig import getconfig
+
 
 import urllib.parse
 import configstuff
@@ -22,6 +24,7 @@ app.register_blueprint(viewimg)
 app.register_blueprint(funstuff)
 app.register_blueprint(delete)
 app.register_blueprint(create)
+app.register_blueprint(getconfig)
 
 ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 

@@ -1,0 +1,44 @@
+/* a minimalist set of CSS resets */
+
+/* default to border-box */
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/* adjust typography defaults */
+body {
+  margin: 1rem;
+  font-family: sans-serif;
+  line-height: 1.5;
+}
+
+/* images and videos max out at full width */
+img,
+video {
+  height: auto;
+  max-width: 100%;
+}
+
+.login-box {
+  display: none; /* Hide the login box by default */
+  /* Add your desired styles for the login box here */
+}
+.signup-box {
+  display: none; /* Hide the login box by default */
+  /* Add your desired styles for the login box here */
+}
+
+.login_button {
+  background-color: #e9e9ed;
+}
+
+.signup_button {
+  background-color: #e9e9ed;
+}

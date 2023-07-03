@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>image host</title>
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/public/login/style.css" />
+
+    <!-- import the webpage's javascript file -->
+    <script src="/public/login/script.js" defer></script>
+  </head>
+  <body>
+    <input
+      class="button login_button"
+      id="login_btn"
+      type="button"
+      value="log in"
+      onclick="login_func();"
+    />
+    <input
+      class="button signup_button"
+      id="signup_btn"
+      type="button"
+      value="sign up"
+      onclick="signup_func();"
+    />
+
+    <div id="login-box" class="login-box">
+      <!-- Add your login form elements here -->
+      log in
+      <input
+        type="text"
+        id="username_login"
+        autocorrect="off"
+        placeholder="username"
+      />
+      <input
+        type="text"
+        id="password_login"
+        autocorrect="off"
+        placeholder="password"
+      />
+      <input type="button" value="Submit" id="login_submit" />
+    </div>
+
+    <div id="signup-box" class="signup-box">
+      <!-- Add your login form elements here -->
+      sign up
+      <input
+        type="text"
+        id="username_signup"
+        autocorrect="off"
+        placeholder="username"
+      />
+      <input
+        type="text"
+        id="password_signup"
+        autocorrect="off"
+        placeholder="password"
+      />
+      <input type="button" value="Submit" id="signup_submit" />
+    </div>
+  </body>
+</html>

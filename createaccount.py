@@ -4,7 +4,7 @@ import configstuff
 import random
 import json
 import time
-
+# may need to run: chmod 777 -R ./ after running this
 # This is for creating accounts on the server idk if I will create a better way to do this
 configstuff.configsutff()
 

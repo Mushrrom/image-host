@@ -36,7 +36,6 @@ def wtf_is_the_point_of_having_useful_names_for_these():
         return "code"
 
     token = ''.join(random.choice(ln) for _ in range(8))
-
     i = 0
     username = ""
     while i == 0:
@@ -44,8 +43,8 @@ def wtf_is_the_point_of_having_useful_names_for_these():
         print(username)
         new_session_token = ''.join(random.choice(ln) for _ in range(20))
         if not os.path.exists(f"{data_path}/users/{username}"):
-            os.mkdir(f"{data_path}/users/{username}")
-            os.mkdir(f"{data_path}/users/{username}/images")
+            # os.mkdir(f"{data_path}/users/{username}")
+            # os.mkdir(f"{data_path}/users/{username}/images")
             os.mkdir(f"{image_path}/{username}")
             with open(f"{data_path}/users/{username}/user.json", "w") as f:
                 data = {"token": token,

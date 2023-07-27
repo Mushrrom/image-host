@@ -6,5 +6,6 @@ data/aA.json
 data.json
 test.py
 configstuff.py
+.pylintrc
 
 ./test.py

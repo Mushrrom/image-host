@@ -1,18 +1,20 @@
 import os
 import sys
-import configstuff
 import random
-import json
 import time
+
 from pymongo import MongoClient
 
+import configstuff
 # may need to run: chmod 777 -R ./ after running this
 # This is for creating accounts on the server idk if I will create a better way to do this
+# okay i understand this is bad and i am gonna add it to the server
 
 
 def get_database():
+    '''connect to db'''
     CONNECTION_STRING = "mongodb://localhost:27017"
-    client = MongoClient(CONNECTION_STRING) 
+    client = MongoClient(CONNECTION_STRING)
 
     return client["image-host"]
 
@@ -29,20 +31,19 @@ images_path = os.environ.get("images_path")
 token = sys.argv[1]
 
 
-
-username = ""
+uid = ""
 
 
 if len(sys.argv) == 2:
     i = 0
     while i == 0:
         uid = f"{ln[random.randint(0, 61)]}{ln[random.randint(0, 61)]}"
-        
         usr = collection_name.find_one({"uid" : uid})
+
         if not usr:
             os.mkdir(f"{images_path}/{uid}")
             data = {
-	        "version": 1,
+	            "version": 1,
                 "username": "example_username",
                 "uid": uid,
                 "upload_token" : token,
@@ -106,4 +107,4 @@ if len(sys.argv) == 2:
 #         print("Username already used")
 #         quit()
 
-print(f"created account with username: {username} and token: {token}")
+print(f"created account with username: {uid} and token: {token}")

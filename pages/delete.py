@@ -2,7 +2,7 @@ from flask import Flask, request, send_file, jsonify, render_template, Blueprint
 import configstuff
 import os
 import json
-
+#for deleting files
 
 configstuff.configsutff()
 from datetime import datetime, timedelta
@@ -12,6 +12,7 @@ delete = Blueprint('delete', __name__, template_folder='templates')
 
 data_path = os.environ["data_path"]
 images_path = os.environ["images_path"]
+
 @delete.route('/api/delete/<img>/<token>', methods=['POST', 'GET'])
 def deleteimage(img, token):
     if not os.path.exists(f"{data_path}/users/{img[:2]}/images/{img[2:6]}.json"): return "image does not exist"

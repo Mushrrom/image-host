@@ -5,6 +5,8 @@ from random import randint
 import configstuff
 from datetime import datetime
 import random
+from pymongo import MongoClient
+
 
 configstuff.configsutff()
 ln = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
@@ -13,7 +15,13 @@ upload = Blueprint('upload', __name__, template_folder='templates')
 URL = os.environ.get("URL")
 path = os.environ.get("main_path")
 data_path = os.environ.get("data_path")
+images_path = os.environ.get("images_path")
+def get_database():
+    '''connect to db'''
+    CONNECTION_STRING = "mongodb://localhost:27017"
+    client = MongoClient(CONNECTION_STRING)
 
+    return client["image-host"]
 
 def numbertobase3(n):
     if n == 0: return "0000"
@@ -44,6 +52,11 @@ def tocoolstring(input):
 def show():
     if request.method == 'GET':
         return "get"
+
+    db_client = get_database()
+    db_users = db_client["users"]
+    db_images = db_client["images"]
+
     url = request.form["url"]
     token = request.form["auth"][2:]
     username = request.form["auth"][:2]
@@ -51,20 +64,58 @@ def show():
     print(username)
     image = request.files.get("file")
 
+    user = db_users.find_one({"uid": username})
+
     # check token and username:
-    if os.path.exists(f"{data_path}/users/{username}/user.json"):
-        with open(f"{data_path}/users/{username}/user.json") as info:
-            infojson = json.load(info)
-            if infojson["token"] == token:
-                success = 0  # success
-            else:
-                success = 1  # wrong token
-    else:
-        success = 2  # wrong username
+    if not user:
+        return jsonify({"success": False, "error_message": "Username does not exist"}), 400
+    if not user["upload_token"] == token:
+        return jsonify({"success": "false", "error_message": "Wrong token"}), 400
 
-    if not success == 0:
-        return jsonify({"success": False, "error_message": "Token or username or something idk"})
+    print("user found with token")
+    
 
+    if not image.mimetype.startswith("image"):
+        return jsonify({"success": False, "error_message": "Upload an image"}), 400
+
+    # update user stats
+    db_users.update_one({"uid": username},
+                        {"$inc": {"upload_stats.uploads": 1,
+                                  "upload_stats.storage_used": os.fstat(image.fileno()).st_size}})
+
+
+    img_name = ''.join(random.choice(ln) for _ in range(2))
+    image.save(f"{images_path}/{username}/{img_name}")
+
+    deletion_token = ''.join(random.choice(ln) for _ in range(30))
+    cd = datetime.now()  # cd = current date
+
+    db_images.insert_one({"size": os.fstat(image.fileno()).st_size,
+                          "date": str(datetime.now()),
+                          "timeinfo": {
+                             "year": cd.year,
+                             "month": cd.month,
+                             "day": cd.day,
+                             "hour": cd.hour,
+                             "minute": cd.minute,
+                             "second": cd.second
+                        },
+                          "owner": username,
+                          "image_id": img_name,
+                          "image_mimetype": image.mimetype,
+                          "filename": image.filename,
+                          "already_image_exists": False,
+                          "deletion_token": deletion_token,
+                        })
+   
+    
+    img_url = f"{url}/{username}{img_name}"
+    print("ret")
+    return jsonify({"success": True, "url": img_url,
+                        "deletion_url": f"{URL}/api/delete/{img_name}/{deletion_token}"})
+
+
+    # aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     if image.mimetype.startswith("image"):
         docoolstrings = False
         # Get image name string and save image

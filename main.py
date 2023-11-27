@@ -22,4 +22,4 @@ app.register_blueprint(getconfig)
 
 # For hosting on the server
 if __name__ == "__main__":
-        app.run()
+    app.run()

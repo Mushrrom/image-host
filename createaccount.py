@@ -28,12 +28,6 @@ collection_name = get_database()["users"]
 data_path = os.environ.get("data_path")
 images_path = os.environ.get("images_path")
 
-token = sys.argv[1]
-
-
-uid = ""
-
-
 if len(sys.argv) == 2:
     i = 0
     while i == 0:
@@ -46,7 +40,7 @@ if len(sys.argv) == 2:
 	            "version": 1,
                 "username": "example_username",
                 "uid": uid,
-                "upload_token" : token,
+                "upload_token" : sys.argv[1],
                 "upload_stats": {
                     "storage_used": 0,
                     "uploads": 0,
@@ -56,7 +50,7 @@ if len(sys.argv) == 2:
                     "embed": {
                         "title": "{filename} - {filesize}",
                         "description": "{user_storage} uploaded in {"
-                            "user_uploads} images by this user ",
+    "user_uploads} images by this user ",
                         "colour": "#FF6EC4"
                     }
                 },
@@ -107,4 +101,4 @@ if len(sys.argv) == 2:
 #         print("Username already used")
 #         quit()
 
-print(f"created account with username: {uid} and token: {token}")
+print(f"created account with username: {uid} and token: {sys.argv[1]}")

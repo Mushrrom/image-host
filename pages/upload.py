@@ -1,11 +1,13 @@
-from flask import Flask, request, send_file, jsonify, render_template, Blueprint
-import json
 import os
-from random import randint
-import configstuff
+import json
 from datetime import datetime
 import random
+
+from flask import request, jsonify, Blueprint
+
 from pymongo import MongoClient
+
+import configstuff
 
 
 configstuff.configsutff()
@@ -23,12 +25,14 @@ def get_database():
 
     return client["image-host"]
 
-def numbertobase3(n):
-    if n == 0: return "0000"
+def number_to_base_3(num):
+    '''converts a number into base 3 (for )'''
+    if num == 0:
+        return "0000"
     digits = ""
-    while n:
-        digits += str(n % 3)
-        n //= 3
+    while num:
+        digits += str(num % 3)
+        num //= 3
     while len(digits) < 4:
         digits += "0"
     return digits[::-1]
@@ -39,7 +43,7 @@ def tocoolstring(input):
     retstring = ""
     for i in list(input):
         # Basically just converts it to base 3 then uses that to make the image
-        e = numbertobase3(ln.index(i))
+        e = number_to_base_3(ln.index(i))
         # ZWSP ZWNJ ZWJ in this variable
         invischars = "​‌‍"
         for j in e:

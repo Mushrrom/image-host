@@ -1,3 +1,6 @@
+# THIS PROJECT DOESN'T WORK RIGHT NOW BTW - IM WORKING ON UPGRADING TO A PROPER DB.
+
+
 # Flask sharex image host
 
 A ShareX image host made in flask

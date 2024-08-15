@@ -26,7 +26,7 @@ def login():
         return {"success": 0, "error": "invalid username"}
 
     # generate hash of password
-    password_hash = hashlib.sha256(request.form["password"].encode()).hexdigest()
+    password_hash = hashlib.sha256(password.encode()).hexdigest()
     print(password_hash, flush=True)
 
     # Search for user in db and check sumitted password matches
@@ -43,17 +43,13 @@ def login():
     # If user doesnt exist
     if not record:
         return {"success": 0, "error": "Invalid username or password"}
-    print(password_hash,flush=True)
+
     # If password isnt correct
     if not user_password == password_hash:
-
-        print("a",flush=True)
         return {"success": 0, "error": f"Invalid username or password"}
 
-
-    # Generate new session key
+    # Generate new session & save key
     session_key = str(random.randint(0,10000000000)) # TODO fix this shit
-    print(session_key,flush=True)
 
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()

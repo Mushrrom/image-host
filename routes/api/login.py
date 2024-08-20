@@ -8,9 +8,8 @@ from flask import Blueprint, request
 
 from consts import DATABASE
 
-
-
 app = Blueprint('api/login', __name__)
+
 
 @app.route("/api/login", methods=["POST"])
 def login():

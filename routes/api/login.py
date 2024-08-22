@@ -26,7 +26,6 @@ def login():
 
     # generate hash of password
     password_hash = hashlib.sha256(password.encode()).hexdigest()
-    print(password_hash, flush=True)
 
     # Search for user in db and check sumitted password matches
     conn = sqlite3.connect(DATABASE)
@@ -36,12 +35,14 @@ def login():
     record = cursor.fetchone()
     conn.close
 
-    user_password = record[0]
-    userID = record[1]
-
     # If user doesnt exist
     if not record:
         return {"success": 0, "error": "Invalid username or password"}
+
+    user_password = record[0]
+    userID = record[1]
+
+
 
     # If password isnt correct
     if not user_password == password_hash:

@@ -5,3 +5,8 @@ database.db
 *.db*
 
 images/*
+
+delete-later.py
+2.py
+
+*tempcoderunner*

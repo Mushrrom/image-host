@@ -7,3 +7,4 @@ import sqlite3 as _sqlite3
 
 DATABASE = 'database.db'
 URL = 'http://127.0.0.1:5000'
+CHARACTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_'

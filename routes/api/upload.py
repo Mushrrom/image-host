@@ -6,7 +6,7 @@ import random
 
 import sqlite3
 from flask import Blueprint, request, Response, jsonify
-
+from PIL import Image
 from consts import DATABASE, URL
 
 app = Blueprint('api/upload', __name__)
@@ -23,6 +23,19 @@ mime_types = {
     "image/tiff": ".tiff",
     "image/webp": ".webp",
 }
+
+def convert_to_jpg(input_path, output_path):
+    with Image.open(input_path) as img:
+        # Resizes the image while keeping same aspect ratio
+        max_size = (512, 512)
+        img.thumbnail(max_size, Image.Resampling.LANCZOS)
+
+        # converts the image to RGB mode because thats what jpg needs
+        if img.mode in ("RGBA", "P"):
+            img = img.convert("RGB")
+
+        # Save it as JPG format
+        img.save(output_path, format="JPEG")
 
 @app.route("/api/upload", methods=["POST"])
 def upload():
@@ -53,8 +66,6 @@ def upload():
     conn.close
 
     userID = record[0]
-    print(userID, flush=True)
-
     # print(record, flush=True)
 
     # If user with token cant be found
@@ -64,12 +75,10 @@ def upload():
 
     print(image.mimetype, flush=True)
 
-    # TODO: fix this once i can :(
+    # Add image to db
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
 
-    # TODO: MAKE A BETTER TOKEN SYSTEM
-    # imageID = hashlib.sha256(uuid.uuid4().hex.encode()).hexdigest()[:8]
     imageID = random.randint(0, 99999999)
 
     cursor.execute('INSERT INTO image (imageID, fileName, mimeType, ownerID, filePath)'
@@ -79,8 +88,12 @@ def upload():
     conn.commit()
     conn.close
 
-    print(record, flush=True)
+    # Save the image
     image.save(f"images/{imageID}")
+
+    # Save the thumbnail
+    convert_to_jpg(f"images/{imageID}", f"images/{imageID}_THUMBNAIL")
+
     return {"url": f"{URL}/image/{imageID}"}
 
 

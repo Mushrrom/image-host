@@ -92,7 +92,7 @@ async function submit_login() {
     if ((await response_json.success) === 0) {
         alert(`server returned an error: \n${response_json.error}`);
     } else {
-        document.cookie = `session_key=${response.session_key}; expires=Thu, 18 Dec 2999 12:00:00 UTC; path=/`;
+        document.cookie = `token=${response.token}; expires=Thu, 18 Dec 2999 12:00:00 UTC; path=/`;
         alert("successfully logged in");
     }
 

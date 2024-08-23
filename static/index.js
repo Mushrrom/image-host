@@ -4,6 +4,7 @@ signupBox.style.display = "none";
 loginBox.style.display = "none";
 signUpUsername = document.getElementById("username_signup");
 signUpPassword = document.getElementById("password_signup");
+signUpEmail = document.getElementById("email_signup");
 logInUsername = document.getElementById("username_login");
 logInPassword = document.getElementById("password_login");
 
@@ -55,6 +56,20 @@ async function submit_sign_up() {
     // Add a text field
     formData.append("username", signUpUsername.value);
     formData.append("password", signUpPassword.value);
+    formData.append("email", signUpEmail.value);
+
+    const response = await fetch("/api/sign_up", {
+        method: "POST",
+        body: formData,
+    });
+
+    response_json = await response.json();
+    console.log(response_json.success);
+    if (response_json.success === 0) {
+        alert(`server returned an error: \n${response_json.error}`);
+    } else {
+        alert("account successfully created, you can log in now");
+    }
 }
 
 async function submit_login() {
@@ -73,17 +88,13 @@ async function submit_login() {
         body: formData,
     });
 
-    // console.log(await response.json());
-    // response = await response.json();
-    // console.log(await )
     response_json = await response.json();
     if ((await response_json.success) === 0) {
-        console.log("avc");
-        alert(response_json.error);
+        alert(`server returned an error: \n${response_json.error}`);
     } else {
         document.cookie = `session_key=${response.session_key}; expires=Thu, 18 Dec 2999 12:00:00 UTC; path=/`;
         alert("successfully logged in");
     }
 
-    window.location.href = "/"
+    window.location.href = "/";
 }

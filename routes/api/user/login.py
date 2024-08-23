@@ -8,10 +8,9 @@ from flask import Blueprint, request
 
 from consts import DATABASE
 
-app = Blueprint('api/login', __name__)
+app = Blueprint('api/user/login', __name__)
 
-
-@app.route("/api/login", methods=["POST"])
+@app.route("/api/user/login", methods=["POST"])
 def login():
     # Handle requests that are missing username or password
     if not "username" in request.form or not "password" in request.form:

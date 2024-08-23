@@ -8,9 +8,9 @@ from flask import Blueprint, request
 
 from consts import DATABASE, CHARACTERS
 
-app = Blueprint('api/sign_up', __name__)
+app = Blueprint('api/user/sign_up', __name__)
 
-@app.route("/api/sign_up", methods=["POST"])
+@app.route("/api/user/sign_up", methods=["POST"])
 def sign_up():
 # Handle requests that are missing username or password
     if not "username" in request.form or not "password" in request.form or not "email" in request.form:
@@ -36,8 +36,9 @@ def sign_up():
         cursor.execute(f'INSERT INTO user (username, passwordHash, userEmail, uploadKey) VALUES (?, ?, ?, ?)', (username, password_hash, email, uploadKey))
         conn.commit()
         conn.close
-    except:  # This will happen if an error occurs due to a username or email not being unique
 
+    # This will happen if an error occurs due to a username or email not being unique
+    except:
         return {"success": 0, "error": "could not create record - maybe your username or email is in use"}
 
     return {"success": 1}

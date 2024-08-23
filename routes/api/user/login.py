@@ -5,8 +5,9 @@ from time import time
 
 import sqlite3
 from flask import Blueprint, request
+import jwt
 
-from consts import DATABASE
+from consts import DATABASE, APP_SECRET_KEY
 
 app = Blueprint('api/user/login', __name__)
 
@@ -30,7 +31,7 @@ def login():
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
 
-    cursor.execute(f'SELECT passwordHash, userID FROM user WHERE username = "{request.form["username"]}"')
+    cursor.execute(f'SELECT passwordHash, userID FROM user WHERE username = "{username}"')
     record = cursor.fetchone()
     conn.close
 
@@ -47,15 +48,9 @@ def login():
     if not user_password == password_hash:
         return {"success": 0, "error": f"Invalid username or password"}
 
-    # Generate new session & save key
-    session_key = str(random.randint(0,10000000000)) # TODO fix this shit
+    token = jwt.encode({
+            'id': userID,
+            'created' : time.time()
+        }, APP_SECRET_KEY)
 
-    conn = sqlite3.connect(DATABASE)
-    cursor = conn.cursor()
-
-    cursor.execute(f'INSERT INTO token (userID, value, createdDate)'
-                   f' VALUES ({userID}, {session_key}, {int(time())})')
-    conn.commit()
-    conn.close
-
-    return {"success": 1, "session_key": session_key}
+    return {"success": 1, "token": token}

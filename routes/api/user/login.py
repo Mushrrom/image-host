@@ -1,6 +1,6 @@
 import re
 import hashlib
-from time import time
+import time
 
 import sqlite3
 from flask import Blueprint, request

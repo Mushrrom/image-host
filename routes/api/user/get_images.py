@@ -12,6 +12,7 @@ app = Blueprint('api/user/get_images', __name__)
 
 @app.route("/api/user/get_images", methods=["GET"])
 def view_images():
+    print(request.headers, flush=True)
     if not "token" in request.headers:
         return {"auth": 0}
 
@@ -36,4 +37,4 @@ def view_images():
     for i in record:
         images.append({"id": i[0], "name": i[1]})
 
-    return {"success": 1, "images": images}
+    return {"auth": 1, "images": images}

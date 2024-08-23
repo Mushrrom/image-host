@@ -58,7 +58,7 @@ async function submit_sign_up() {
     formData.append("password", signUpPassword.value);
     formData.append("email", signUpEmail.value);
 
-    const response = await fetch("/api/sign_up", {
+    const response = await fetch("/api/user/sign_up", {
         method: "POST",
         body: formData,
     });
@@ -82,7 +82,7 @@ async function submit_login() {
     formData.append("username", logInUsername.value);
     formData.append("password", logInPassword.value);
 
-    const response = await fetch("/api/login", {
+    const response = await fetch("/api/user/login", {
         method: "POST",
         // Set the FormData instance as the request body
         body: formData,
@@ -92,8 +92,9 @@ async function submit_login() {
     if ((await response_json.success) === 0) {
         alert(`server returned an error: \n${response_json.error}`);
     } else {
-        document.cookie = `token=${response.token}; expires=Thu, 18 Dec 2999 12:00:00 UTC; path=/`;
+        document.cookie = `token=${response_json.token}; expires=Thu, 18 Dec 2999 12:00:00 UTC; path=/`;
         alert("successfully logged in");
+        window.location = "/all_images";
     }
 
     window.location.href = "/";

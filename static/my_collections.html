@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Image Grid</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 0;
+                padding: 0;
+                background-color: #f8f8f8;
+            }
+
+            .container {
+                gap: 20px;
+                padding: 20px;
+                width: 100%;
+                max-width: 1200px;
+                font-family: "Source Code Pro", monospace;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="/all_images">view my images</a>
+        <a href="/upload">upload an image</a>
+        <h1>My collections:</h1>
+        <div class="container" id="collection-container"></div>
+        <script src="my_collections.js"></script>
+    </body>
+</html>

@@ -1,26 +1,13 @@
-function addImageBox(imageID, imageName) {
-    const container = document.getElementById("image-container");
-
-    // make a box for the image
-    const imageBox = document.createElement("div");
-    imageBox.className = "image-box";
-
-    // add the image to the box
-    const img = document.createElement("img");
-    img.src = `/api/image/thumbnail/${imageID}`;
-    img.alt = imageName;
-    imageBox.appendChild(img);
+function addCollectionLink(collectionID, collectionName) {
+    const container = document.getElementById("collection-container");
 
     // add the text underneath
     const link = document.createElement("a");
-    link.textContent = imageName;
-    link.href = `/image/${imageID}`;
-    link.target = "_blank"; // makes the link open in new tab
-
-    imageBox.appendChild(link);
+    link.textContent = collectionName;
+    link.href = `/collection/${collectionID}`;
 
     // Append the image box to the container
-    container.appendChild(imageBox);
+    container.appendChild(link).appendChild(document.createElement("br"));
 }
 
 // cookie function from w3 schools
@@ -49,10 +36,9 @@ window.onload = async function () {
         window.location.href = "/";
     }
 
-    const response = await fetch("/api/user/get_images", {
+    const response = await fetch("/api/user/get_collections", {
         method: "GET",
         headers: { token: token },
-        // Set the FormData instance as the request body
     });
 
     response_json = await response.json();
@@ -62,9 +48,10 @@ window.onload = async function () {
         alert("You must sign in to access this");
         window.location.href = "/";
     }
-    for (i = 0; i < response_json.images.length; i++) {
-        imageName = response_json.images[i].name;
-        imageID = response_json.images[i].id;
-        addImageBox(imageID, imageName);
+    console.log(response_json);
+    for (i = 0; i < response_json.collections.length; i++) {
+        imageName = response_json.collections[i].name;
+        imageID = response_json.collections[i].id;
+        addCollectionLink(imageID, imageName);
     }
 };

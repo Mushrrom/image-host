@@ -6,9 +6,9 @@ import jwt
 
 from consts import DATABASE, APP_SECRET_KEY
 
-app = Blueprint('api/user/get_images', __name__)
+app = Blueprint('api/user/get_collections', __name__)
 
-@app.route("/api/user/get_images", methods=["GET"])
+@app.route("/api/user/get_collections", methods=["GET"])
 def view_images():
     if not "token" in request.headers:
         return {"auth": 0}
@@ -20,18 +20,19 @@ def view_images():
 
     userID = token["id"]
 
-    # get the images linked to the user
+    # get all the collections the user with that id has access to
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
 
-    cursor.execute("""SELECT imageID, fileName FROM image
-                    WHERE image.ownerID = ?""", (userID, ))
+    cursor.execute("""SELECT collectionID, collectionName from imageCollection
+                    WHERE collectionID IN (SELECT collectionID FROM userCollectionAllocation
+                    WHERE  userCollectionAllocation.userID = ?)""",
+                      (userID, ))
     record = cursor.fetchall()
     conn.close
 
-    # Format the records into a better format
-    images = []
+    collections = []
     for i in record:
-        images.append({"id": i[0], "name": i[1]})
+        collections.append({"id": i[0], "name": i[1]})
 
-    return {"auth": 1, "images": images}
+    return {"auth": 1, "collections": collections}

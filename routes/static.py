@@ -18,3 +18,11 @@ def all_images():
 @app.route("/all_images.js")
 def all_images_js():
     return send_file("static/all_images.js")
+
+@app.route("/my_collections")
+def my_collections():
+    return send_file("static/my_collections.html")
+
+@app.route("/my_collections.js")
+def my_collections_js():
+    return send_file("static/my_collections.js")

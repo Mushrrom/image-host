@@ -42,7 +42,6 @@ def upload():
     userID = token["id"]
 
     image = request.files.get("image")
-    print(image.mimetype, flush=True)
 
     # Add image to db
     conn = sqlite3.connect(DATABASE)
@@ -63,6 +62,6 @@ def upload():
     # Save the thumbnail
     convert_to_jpg(f"images/{imageID}", f"images/{imageID}_THUMBNAIL")
 
-    return {"url": f"{URL}/image/{imageID}"}
+    return {"success": 1, "url": f"{URL}/image/{imageID}"}
 
 

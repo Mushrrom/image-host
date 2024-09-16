@@ -3,13 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Imagen - my collections</title>
+        <title>Imagen - upload image</title>
         <link
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
             rel="stylesheet"
         />
         <style>
-            body {
+            header {
                 font-family: "Source Code Pro", monospace;
                 display: flex;
                 flex-direction: column;
@@ -19,17 +19,13 @@
                 background-color: #f8f8f8;
             }
 
-            .container {
-                gap: 20px;
-                padding: 20px;
-                width: 100%;
-                max-width: 1200px;
+            body {
                 font-family: "Source Code Pro", monospace;
+
+                background-color: #f8f8f8;
             }
 
-            /* some themes that make inputs look wayyyy better */
             input {
-                font-family: "Source Code Pro", monospace;
                 padding: 10px 15px;
                 margin: 10px 0;
                 border: 2px solid #ccc;
@@ -37,6 +33,7 @@
                 box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
                 color: #333;
                 transition: all 0.3s ease;
+                font-family: "Source Code Pro", monospace;
             }
 
             /* when the input is hovered on - will be lighter than when clicked */
@@ -56,19 +53,25 @@
             }
         </style>
     </head>
+    <header>
+        <a href="/my_collections">view my collections</a>
+        <a href="/all_images">View all my images</a>
+    </header>
     <body>
-        <a href="/all_images">view my images</a>
-        <a href="/upload">upload an image</a>
-        <h1>My collections:</h1>
-        <div class="container" id="collection-container"></div>
-        create a collection
+        <h1>Upload an image</h1>
         <input
-            type="text"
-            id="collection_name"
-            autocorrect="off"
-            placeholder="collection name"
+            style="display: inline-block"
+            type="file"
+            value="click to select image"
+            id="image_picker"
         />
-        <input type="button" value="create" onclick="create_collection()" />
-        <script src="my_collections.js"></script>
+        <input
+            style="display: inline-block"
+            type="button"
+            value="upload"
+            id="image_upload"
+            onclick="upload_image()"
+        />
     </body>
+    <script src="upload.js"></script>
 </html>

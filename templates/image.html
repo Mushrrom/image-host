@@ -1,52 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>image</title>
-    <link href="styles.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        background-color: #f8f8f8;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-family: Arial, sans-serif;
-      }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>imagen - {{image_name}}</title>
+        <link href="styles.css" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+            rel="stylesheet"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="{{image_src}}" />
+        <meta name="twitter:image:src" content="{{image_src}}" />
+        <meta property="og:image" content="{{image_src}}" />
+        <meta name="theme-color" content="#FF6EC4" />
+        <title>image</title>
+        <meta property="og:title" content="{{image_name}}" />
+        <meta name="twitter:title" content="{{image_name}}" />
+        <style>
+            body {
+                background-color: #f8f8f8;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                font-family: Arial, sans-serif;
+            }
 
-      .container {
-        max-width: 90%;
-        width: 500px;
-        background-color: #fefef8;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        overflow: hidden;
-        font-family: "Source Code Pro", monospace;
-        font-optical-sizing: auto;
-      }
+            .container {
+                max-width: 90%;
+                width: 500px;
+                background-color: #fefef8;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                overflow: hidden;
+                font-family: "Source Code Pro", monospace;
+                font-optical-sizing: auto;
+            }
 
-      .image-box img {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="image-box">
-        <img id="image" src="{{image_src}}" />
-      </div>
-      <div id="image-name">{{image_name}}</div>
-    </div>
-  </body>
+            .image-box img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="image-box">
+                <img id="image" src="{{image_src}}" />
+            </div>
+            <div id="image-name">{{image_name}}</div>
+        </div>
+    </body>
 </html>

@@ -55,3 +55,30 @@ window.onload = async function () {
         addCollectionLink(imageID, imageName);
     }
 };
+
+async function create_collection() {
+    const collectionName = document.getElementById("collection_name").value;
+
+    token = getCookie("token");
+
+    const formData = new FormData();
+    formData.append("collectionName", collectionName);
+
+    const response = await fetch(`/api/collection/create`, {
+        method: "POST",
+        headers: { token: token },
+        body: formData,
+        // Set the FormData instance as the request body
+    });
+
+    console.log(response);
+
+    response_json = await response.json();
+
+    if (response_json.success === 0) {
+        alert(`Server returned an error:\n${response_json.error}`);
+    } else {
+        alert(`Successfully created collection`);
+        location.reload;
+    }
+}

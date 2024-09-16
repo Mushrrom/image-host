@@ -26,3 +26,19 @@ def my_collections():
 @app.route("/my_collections.js")
 def my_collections_js():
     return send_file("static/my_collections.js")
+
+@app.route("/collection/<collectionID>")
+def collection(collectionID):
+    return send_file("static/collection.html")
+
+@app.route("/collection.js")
+def collection_js():
+    return send_file("static/collection.js")
+
+@app.route("/upload")
+def upload():
+    return send_file("static/upload.html")
+
+@app.route("/upload.js")
+def upload_js():
+    return send_file("static/upload.js")

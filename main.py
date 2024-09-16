@@ -21,6 +21,8 @@ import routes.api.collection.create
 
 app = Flask(__name__)
 
+# I really can not believe there is not a better way to register paths in flask.
+# In fastify (a js library) it is so much easier.
 app.register_blueprint(routes.image.app)
 app.register_blueprint(routes.static.app)
 app.register_blueprint(routes.api.user.login.app)
@@ -38,8 +40,6 @@ app.register_blueprint(routes.api.collection.add_user.app)
 app.register_blueprint(routes.api.collection.change_visibiity.app)
 app.register_blueprint(routes.api.collection.get_info.app)
 app.register_blueprint(routes.api.collection.create.app)
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)  #runs the template/index.html file by default

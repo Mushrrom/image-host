@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Imagen - image collection</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 0;
+                padding: 0;
+                background-color: #f8f8f8;
+                font-family: "Source Code Pro", monospace;
+            }
+
+            .container {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+                padding: 20px;
+                width: 100%;
+                max-width: 1200px;
+                font-family: "Source Code Pro", monospace;
+            }
+
+            .image-box {
+                display: flex;
+                flex-direction: column;
+                align-items: left;
+                padding: 10px;
+                background-color: #fefef8;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .image-box img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .image-box p {
+                margin: 0;
+                text-align: center;
+            }
+
+            /* some themes that make inputs look wayyyy better */
+            input {
+                font-family: "Source Code Pro", monospace;
+                padding: 10px 15px;
+                margin: 10px 0;
+                border: 2px solid #ccc;
+                background-color: #f9f9f9;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+                color: #333;
+                transition: all 0.3s ease;
+            }
+
+            /* when the input is hovered on - will be lighter than when clicked */
+            input:hover {
+                border-color: #007bff7c;
+                background-color: #ffffff;
+                box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+                outline: none;
+            }
+
+            /* when the input is clicked */
+            input:focus {
+                border-color: #007bff;
+                background-color: #ffffff;
+                box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+                outline: none;
+            }
+        </style>
+    </head>
+    <a href="/all_images">view all my images</a>
+    <a href="/upload">upload an image</a>
+    <body>
+        <h1 id="collection_name">collection name</h1>
+        <div id="add_user_box" class="add_user_box">
+            Add a user to the collection:
+            <input
+                type="text"
+                id="userID_add_user"
+                autocorrect="off"
+                placeholder="user ID"
+            />
+            <input
+                type="button"
+                value="add"
+                id="add_user"
+                onclick="add_user()"
+            />
+        </div>
+        <div id="add_image_box" class="add_image_box">
+            Add an image to collection:
+            <input
+                type="text"
+                id="id_add_image"
+                autocorrect="off"
+                placeholder="image ID"
+            />
+            <input
+                type="button"
+                value="add"
+                id="add_image"
+                onclick="add_image()"
+            />
+        </div>
+        <input
+            type="button"
+            value="click to make this collection ?"
+            id="change_visibility"
+            onclick="change_visibility()"
+        />
+        <div class="container" id="image-container">
+            <!-- js automatically adds images here :3 -->
+        </div>
+        <script src="/collection.js"></script>
+    </body>
+</html>

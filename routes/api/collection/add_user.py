@@ -11,10 +11,9 @@ app = Blueprint('api/collection/add_user', __name__)
 
 
 @app.route("/api/collection/<collection_id>/add_user", methods=["POST"])
-def view_images(collection_id):
+def add_user(collection_id):
     if not "userID" in request.form:
         return {"success": 0, "error": "invalid request"}
-
 
     # convert submitted collection ID to integer (if a user has submitted
     # something else this wont work)

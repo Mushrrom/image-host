@@ -4,15 +4,49 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>image host</title>
+        <title>Imagen</title>
 
         <!-- import the webpage's stylesheet -->
         <link rel="stylesheet" href="/public/login/style.css" />
 
         <!-- import the webpage's javascript file -->
         <script src="/index.js" defer></script>
+        <style>
+            body {
+                background-color: #f8f8f8;
+                font-family: "Source Code Pro", monospace;
+            }
+            /* some themes that make inputs look wayyyy better */
+            input {
+                font-family: "Source Code Pro", monospace;
+                padding: 10px 15px;
+                margin: 10px 0;
+                border: 2px solid #ccc;
+                background-color: #f9f9f9;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+                color: #333;
+                transition: all 0.3s ease;
+            }
+
+            /* when the input is hovered on - will be lighter than when clicked */
+            input:hover {
+                border-color: #007bff7c;
+                background-color: #ffffff;
+                box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+                outline: none;
+            }
+
+            /* when the input is clicked */
+            input:focus {
+                border-color: #007bff;
+                background-color: #ffffff;
+                box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+                outline: none;
+            }
+        </style>
     </head>
     <body>
+        <h1>Imagen - share images easily</h1>
         <input
             class="button login_button"
             id="login_btn"

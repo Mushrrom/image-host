@@ -46,20 +46,30 @@ def view_images(collection_id):
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
 
-    cursor.execute("""SELECT public FROM imageCollection
+    cursor.execute("""SELECT public, collectionName FROM imageCollection
                     WHERE collectionID = ?""", (collectionID, ))
     record = cursor.fetchone()
     conn.close
 
     if not record:
         return {"success": 0, "error": "Collection does not exist"}
-    # If the collection is public the record should just return 1 and we can just
-    # send it straight back to the user
-    if record[0] == 1:
-        return {"success": 1, "images": get_collection_images(collectionID)}
+
+    collectionName = record[1]
+    public = record[0]
+
+    # If the collection is public the record will return 1 and we can just
+    # return the collection straight to the user
+    if public == 1:
+        return {"success": 1, "images": get_collection_images(collectionID), "collectionName": collectionName, "public": public}
 
     # Everything else here is if the collection is private
     if not "token" in request.headers:
+        return {"success": 0, "error": "You need to sign in to access this collection"}
+
+    # If the token is nothing that will be because the fetch cookie function in
+    # the front end returned an empty string, meaning the user has not signed in
+    # and there is no token
+    if request.headers["token"] == "":
         return {"success": 0, "error": "You need to sign in to access this collection"}
 
     try:
@@ -84,4 +94,4 @@ def view_images(collection_id):
     if not record:
         return {"success": 0, "error": "You dont have access to this collection"}
 
-    return {"success": 1, "images": get_collection_images(collectionID)}
+    return {"success": 1, "images": get_collection_images(collectionID), "collectionName": collectionName, "public": public}
